@@ -15,16 +15,27 @@ Main = {
   create() {
     // Background
     this.add.image(400, 300, "sky");
+    this.physics.world.setBounds(
+      0,
+      0,
+      game_width,
+      game_height,
+      true,
+      true,
+      false,
+      true
+    );
 
     // Inputs
     cursors = this.input.keyboard.createCursorKeys();
 
     // Platforms
     platforms = this.physics.add.staticGroup();
-    platforms.create(400, 568, "ground").setScale(2).refreshBody();
-    platforms.create(600, 400, "ground");
-    platforms.create(50, 250, "ground");
-    platforms.create(750, 220, "ground");
+    platforms.create(400, 580, "ground").setScale(2).refreshBody();
+    platforms.create(400, 420, "ground");
+    platforms.create(50, 260, "ground");
+    platforms.create(750, 260, "ground");
+    platforms.create(400, 100, "ground");
 
     // Player
     player = this.physics.add.sprite(100, 450, "dude");
@@ -35,11 +46,15 @@ Main = {
     stars = this.physics.add.group({
       key: "star",
       repeat: 11,
-      setXY: { x: 12, y: 0, stepX: 70 },
+      setXY: { x: 12, y: 0, stepX: 64 },
     });
 
+    for (i = 0; i < 4; i++) {
+      stars.create(280 + 64 * i, 240, "star");
+    }
+
     stars.children.iterate(function (child) {
-      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+      child.setBounceY(Phaser.Math.FloatBetween(0.6, 0.8));
     });
 
     // Bombs
@@ -56,7 +71,7 @@ Main = {
     this.physics.add.collider(platforms, stars);
     this.physics.add.collider(platforms, bombs);
     this.physics.add.collider(player, stars, collectStar, null, this);
-    this.physics.add.collider(player, bombs, hitBomb, null, this);
+    this.physics.add.overlap(player, bombs, hitBomb, null, this);
 
     // Animations
     this.anims.create({
@@ -82,6 +97,7 @@ Main = {
 
   // Update
   update() {
+    // Left and Right
     if (cursors.left.isDown) {
       player.setVelocityX(-160);
       player.anims.play("left", true);
@@ -93,6 +109,7 @@ Main = {
       player.anims.play("turn");
     }
 
+    // Jump
     if (cursors.up.isDown && player.body.touching.down) {
       player.setVelocityY(-360);
     }
@@ -107,7 +124,7 @@ function collectStar(player, star) {
 
   if (stars.countActive(true) === 0) {
     stars.children.iterate(function (child) {
-      child.enableBody(true, child.x, 0, true, true);
+      child.enableBody(true, child.x, child.y - 48, true, true);
     });
 
     var x =
@@ -124,7 +141,9 @@ function collectStar(player, star) {
 }
 
 function hitBomb(player, bomb) {
-  this.physics.pause();
-  player.setTint(0xff0000);
-  gameOver = true;
+  if (player.x - bomb.x <= 10 && player.y - bomb.y <= 10) {
+    this.physics.pause();
+    player.setTint(0xff0000);
+    gameOver = true;
+  }
 }
