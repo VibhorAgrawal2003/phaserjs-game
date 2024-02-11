@@ -1,0 +1,38 @@
+{
+  "name": "phaserjs-game",
+  "version": "1.0.0",
+  "description": "This is a test game to learn the features of PhaserJS.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VibhorAgrawal2003/phaserjs-game.git"
+  },
+  "keywords": [
+    "game",
+    "js",
+    "games",
+    "phaser",
+    "phaserjs",
+    "javascript",
+    "javascript",
+    "games"
+  ],
+  "author": "Vibhor Agrawal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VibhorAgrawal2003/phaserjs-game/issues"
+  },
+  "homepage": "https://github.com/VibhorAgrawal2003/phaserjs-game#readme",
+  "dependencies": {
+    "dotenv": "^16.4.2",
+    "express": "^4.18.2",
+    "phaser": "^3.70.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
