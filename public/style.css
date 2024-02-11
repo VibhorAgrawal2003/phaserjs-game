@@ -1,0 +1,9 @@
+#game_container{
+    margin: auto;
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
+canvas{
+    border: 2px solid #000;
+}

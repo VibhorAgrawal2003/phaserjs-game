@@ -16,12 +16,6 @@ Main = {
     // Background
     this.add.image(400, 300, "sky");
 
-    // Interface
-    scoreText = this.add.text(16, 16, "Score: 0", {
-      fontSize: "24px",
-      fill: "#000",
-    });
-
     // Inputs
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -50,6 +44,12 @@ Main = {
 
     // Bombs
     bombs = this.physics.add.group({});
+
+    // Interface
+    scoreText = this.add.text(16, 16, "Score: 0", {
+      fontSize: "24px",
+      fill: "#000",
+    });
 
     // Collisions
     this.physics.add.collider(platforms, player);
